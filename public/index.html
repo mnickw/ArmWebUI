@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+    <script>
+        function login() {
+            let data = { userid: document.getElementById("userid").value, password: document.getElementById("password").value };
+
+            fetch("api/fetch",
+                {
+                    body: JSON.stringify(data),
+                    method: "post",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                })
+                .then((response) => response.json())
+                .then(result =>document.getElementById("result").innerHTML = result?.data)
+                .catch(error =>  document.getElementById("result").innerHTML = '403');
+        }
+    </script>
+	<title>ARM Device Web UI</title>
+</head>
+<body>
+    <form>
+        <label for="useridl">User ID:</label> <input id="userid" name="userid" type="text" /><br />
+        <br />
+        <label for="passwordl">Password:</label> <input id="password" name="password" type="text" /><br />
+        <br />
+        <button type="button" onclick="login()">Fetch data</button>
+    </form>
+
+    <p id="result"></p>
+</body>
+</html>
